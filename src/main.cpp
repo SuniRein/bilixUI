@@ -52,7 +52,10 @@ int main()
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        GUI_draw("Bilix UI");
+        if (!GUI_draw("Bilix UI"))
+        {
+            glfwSetWindowShouldClose(window, true);
+        }
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

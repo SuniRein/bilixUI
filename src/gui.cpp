@@ -2,8 +2,12 @@
 
 #include "imgui.h"
 
-void GUI_draw(const char* name)
+bool GUI_draw(const char* name)
 {
-    ImGui::Begin(name);
+    static bool window_open = true;
+
+    ImGui::Begin(name, &window_open);
     ImGui::End();
+
+    return window_open;
 }
