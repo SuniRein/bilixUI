@@ -52,7 +52,7 @@ int main()
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (!GUI_draw("Bilix UI"))
+        if (!bilixUI::draw("Bilix UI"))
         {
             glfwSetWindowShouldClose(window, true);
         }

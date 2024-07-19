@@ -2,7 +2,10 @@
 
 #include "imgui.h"
 
-bool GUI_draw(const char* name)
+namespace bilixUI
+{
+
+bool draw(const char* name)
 {
     static bool window_open = true;
 
@@ -11,3 +14,5 @@ bool GUI_draw(const char* name)
 
     return window_open;
 }
+
+} // namespace bilixUI
