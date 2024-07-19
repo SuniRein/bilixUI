@@ -6,6 +6,7 @@
 #include "imgui_impl_opengl3.h"
 
 #include "gui.h"
+#include "file_load.h"
 
 int main()
 {
@@ -36,6 +37,8 @@ int main()
 
     auto& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+
+    bilixUI::load_font(bilixUI::DEFAULT_FONT);
 
     ImGui::StyleColorsDark();
 
