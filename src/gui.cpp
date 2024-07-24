@@ -3,6 +3,8 @@
 #include "imgui.h"
 #include "imgui_stdlib.h"
 
+#include "bilix.h"
+
 namespace bilixUI
 {
 
@@ -27,7 +29,8 @@ bool draw(const char* name)
 
         if (ImGui::Button(u8"获取视频信息"))
         {
-            // TODO(SuniRein): Get video info.
+            output = get_video_info(link);
+            // TODO(SuniRein): Process the origin info.
         }
 
         if (ImGui::Button(u8"下载单个视频"))
