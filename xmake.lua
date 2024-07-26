@@ -1,3 +1,8 @@
+if (os.exists("local_config.lua")) then
+    includes("local_config.lua")
+    load_configs()
+end
+
 add_rules("mode.debug", "mode.release")
 
 add_requires("glfw", "glad")
@@ -5,7 +10,6 @@ add_requires("imgui docking", {configs = {glfw = true, opengl3 = true}})
 add_requires("boost")
 
 add_languages("c++17")
-add_ldflags("-lstdc++fs")
 
 target("main", function()
     add_packages("glfw", "glad", "imgui")
