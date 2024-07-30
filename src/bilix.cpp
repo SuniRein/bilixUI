@@ -7,6 +7,8 @@
 #include "boost/process/pipe.hpp"
 #include "boost/process/system.hpp"
 
+#include "fmt/format.h"
+
 namespace bilixUI
 {
 
@@ -21,7 +23,7 @@ namespace
         boost::process::ipstream stream;
 
         boost::process::system(
-            "bilix info "s + std::string(link),
+            fmt::format("bilix info {}", link),
             boost::process::std_out > stream
         );
 

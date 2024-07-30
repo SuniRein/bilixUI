@@ -1,12 +1,13 @@
 #include "gui.h"
 
+#include "fmt/format.h"
+
 #include "imgui.h"
 #include "imgui_stdlib.h"
 
 #include "bilix.h"
 
 #include <optional>
-#include <sstream>
 #include <vector>
 #include <string>
 
@@ -36,9 +37,7 @@ namespace
             for (const auto& [quality, codec, size] : info)
             {
                 M_info_str_list.emplace_back(
-                    "quality: "s + quality + " "s + 
-                    "codec: "s   + codec   + " "s +
-                    "size: "s    + size    + "\n"s
+                    fmt::format("{} | codec: {} | size: {}", quality, codec, size)
                 );
             }
         }
@@ -73,7 +72,7 @@ bool draw(const char* name)
 
     static bool first_init = true;
     static std::string link;
-    static std::stringstream output;
+    static std::string output;
 
     static std::optional<const MediaInfo> media_info;
 
@@ -97,11 +96,14 @@ bool draw(const char* name)
             video_info_combo.reset(media_info->get_video_info());
             audio_info_combo.reset(media_info->get_audio_info());
 
-            output.str("");
-            output << u8"标题: "   << media_info->get_title()       << "\n";
-            output << u8"观看数: " << media_info->get_count_watch() << "\n";
-            output << u8"点赞数: " << media_info->get_count_like()  << "\n";
-            output << u8"投币数: " << media_info->get_count_coin()  << "\n";
+            output = fmt::format(
+                u8"标题: {}\n"
+                u8"观看数: {}\n"
+                u8"点赞数: {}\n"
+                u8"投币数: {}\n",
+                media_info->get_title(), media_info->get_count_watch(),
+                media_info->get_count_like(), media_info->get_count_coin()
+            );
         }
 
         if (ImGui::Button(u8"下载单个视频"))
@@ -114,7 +116,7 @@ bool draw(const char* name)
             // TODO(SuniRein): Download video list.
         }
 
-        ImGui::TextUnformatted(output.str().c_str());
+        ImGui::TextUnformatted(output.c_str());
 
         video_info_combo.show(u8"选择视频");
         audio_info_combo.show(u8"选择音频");

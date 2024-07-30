@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <stdexcept>
 
+#include "fmt/format.h"
+
 #include "imgui.h"
 
 namespace bilixUI
@@ -14,7 +16,7 @@ void load_font(const std::filesystem::path& path)
 {
     if (!std::filesystem::exists(path))
     {
-        throw std::runtime_error("Unable to load font. Font path "s + path.string() + " does not exist.");
+        throw std::runtime_error(fmt::format("Unable to load font. Font path {} does not exist.", path.string()));
     }
 
     if (const auto& extansion = path.extension(); extansion != ".ttf" && extansion != ".otf")
