@@ -1,15 +1,16 @@
 #include "gui.h"
 
+#include <optional>
+#include <vector>
+#include <string>
+
 #include "fmt/format.h"
 
 #include "imgui.h"
 #include "imgui_stdlib.h"
 
+#include "config.h"
 #include "bilix.h"
-
-#include <optional>
-#include <vector>
-#include <string>
 
 namespace bilixUI
 {
@@ -114,6 +115,19 @@ bool draw(const char* name)
         if (ImGui::Button(u8"下载所有视频"))
         {
             // TODO(SuniRein): Download video list.
+        }
+
+        if constexpr (bilixUI::config::debug)
+        {
+            if (ImGui::Button(u8"示例链接1"))
+            {
+                link = "https://www.bilibili.com/video/BV1DW421X7zK/";
+            }
+            ImGui::SameLine();
+            if (ImGui::Button(u8"示例链接2"))
+            {
+                link = "https://www.bilibili.com/video/BV1Ry411e7Ac/";
+            }
         }
 
         ImGui::TextUnformatted(output.c_str());

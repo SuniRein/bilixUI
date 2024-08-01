@@ -17,6 +17,10 @@ target("main", function()
     add_packages("boost")
     add_packages("fmt")
 
+    if (is_mode("debug")) then
+        add_defines("BILIXUI_DEBUG")
+    end
+
     add_defines("BILIXUI_ASSET_PATH=\"$(projectdir)/asset\"")
     add_defines("BILIXUI_DEFAULT_FONT=\"SourceHanSansCN-Normal.otf\"")
 
