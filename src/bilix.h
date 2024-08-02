@@ -59,4 +59,8 @@ class MediaInfo
 
 MediaInfo get_media_info(std::string_view link);
 
+std::string download_single_video(std::string_view link, const VAInfoUnit* video_unit, const VAInfoUnit* audio_unit);
+
+void clear_downloaded_video();
+
 } // namespace bilixUI

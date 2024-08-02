@@ -156,4 +156,27 @@ MediaInfo get_media_info(std::string_view link)
     return MediaInfo(raw_media_info);
 }
 
+// TODO(SuniRein): Process invalid input.
+std::string download_single_video(std::string_view link, const VAInfoUnit* video_unit, const VAInfoUnit* audio_unit)
+{
+    [[maybe_unused]] const auto [v_quality, v_codec, v_size] = video_unit ? *video_unit : VAInfoUnit{};
+    [[maybe_unused]] const auto [a_quality, a_codec, a_size] = audio_unit ? *audio_unit : VAInfoUnit{};
+
+    const std::string command = fmt::format(
+        R"(bilix get_video --dir bilix {} --codec "{}:{}" --quality "{}")",
+        link, v_codec, a_codec, v_quality
+    );
+
+    boost::process::system(command);
+
+    return command;
+}
+
+void clear_downloaded_video()
+{
+    boost::process::system(
+        "rm -rf bilix"
+    );
+}
+
 } // namespace bilixUI

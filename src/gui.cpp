@@ -64,6 +64,11 @@ namespace
                 ImGui::EndCombo();
             }
         }
+
+        auto get_selected_unit() const
+        {
+            return M_selected_unit;
+        }
     };
 } // anonymous namespace
 
@@ -74,6 +79,8 @@ bool draw(const char* name)
     static bool first_init = true;
     static std::string link;
     static std::string output;
+
+    static std::string command;
 
     static std::optional<const MediaInfo> media_info;
 
@@ -109,7 +116,7 @@ bool draw(const char* name)
 
         if (ImGui::Button(u8"下载单个视频"))
         {
-            // TODO(SuniRein): Download a single video.
+            command = download_single_video(link, video_info_combo.get_selected_unit(), audio_info_combo.get_selected_unit());
         }
 
         if (ImGui::Button(u8"下载所有视频"))
@@ -123,10 +130,17 @@ bool draw(const char* name)
             {
                 link = "https://www.bilibili.com/video/BV1DW421X7zK/";
             }
+
             ImGui::SameLine();
             if (ImGui::Button(u8"示例链接2"))
             {
                 link = "https://www.bilibili.com/video/BV1Ry411e7Ac/";
+            }
+
+            ImGui::SameLine();
+            if (ImGui::Button(u8"清空已下载的视频"))
+            {
+                clear_downloaded_video();
             }
         }
 
@@ -134,6 +148,11 @@ bool draw(const char* name)
 
         video_info_combo.show(u8"选择视频");
         audio_info_combo.show(u8"选择音频");
+
+        if constexpr (bilixUI::config::debug)
+        {
+            ImGui::Text(u8"运行命令: %s", command.c_str());
+        }
     }
     ImGui::End();
 
